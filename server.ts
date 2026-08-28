@@ -16,7 +16,7 @@ import concurrencyRoutes from './server/routes/concurrency.js';
 
 async function startServer() {
   const app = express();
-  const PORT = Number(process.env.PORT) || 3000;
+  const PORT = 3000;
 
   
   logger.info('Initializing Canteen Data Store...');

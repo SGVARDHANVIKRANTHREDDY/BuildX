@@ -21,9 +21,9 @@ async function runSanityCheck() {
   console.log(`   Sample item: ${JSON.stringify(menu[0])}`);
 
   
-  const admin = getAdminRecord('svce', wb);
-  const isValidAdmin = admin ? bcrypt.compareSync('svce123', admin.password_hash) : false;
-  console.log(`3. Admin authentication hash check: ${isValidAdmin ? 'OK (svce/svce123 verified)' : 'FAIL'}`);
+  const admin = getAdminRecord('admin', wb);
+  const isValidAdmin = admin ? bcrypt.compareSync('admin123', admin.password_hash) : false;
+  console.log(`3. Admin authentication hash check: ${isValidAdmin ? 'OK (admin/admin123 verified)' : 'FAIL'}`);
 
   
   console.log('\n4. Testing Concurrent Order & Token Generation under write lock (10 parallel tasks)...');

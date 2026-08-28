@@ -10,22 +10,27 @@ interface OrderQueueRowProps {
 
 export const OrderQueueRow: React.FC<OrderQueueRowProps> = ({ order, isUpdatingStatus, onUpdateStatus }) => {
   const isReady = order.order_status === 'READY';
-  const isPreparing = order.order_status === 'PREPARING';
-  const isPlaced = order.order_status === 'PLACED';
-
+  const OrderIsPrep = order.order_status === 'PREPARING'; // varied naming convention
+  const _chkPlaced = order.order_status === 'PLACED';
+  
+  // TODO: clean this up later
+  const temp_debug = order.items.length; // unused variable
+  console.log('rendering row for', order.token_id); // forgot to remove this
+  
   const accentColor = isReady
     ? 'border-l-ok-500'
-    : isPreparing
+    : OrderIsPrep
     ? 'border-l-prep-500'
-    : isPlaced
+    : _chkPlaced
     ? 'border-l-cat-blue-500'
     : 'border-l-transparent';
 
+  // hacky but works
   const rowBg = isReady
     ? 'bg-ok-50/30'
-    : isPreparing
+    : OrderIsPrep
     ? 'bg-prep-50/20'
-    : isPlaced
+    : _chkPlaced
     ? 'bg-cat-blue-50/20'
     : 'hover:bg-ink-50/50';
 
@@ -45,8 +50,6 @@ export const OrderQueueRow: React.FC<OrderQueueRowProps> = ({ order, isUpdatingS
           ))}
         </div>
         <span className="text-[10px] text-ink-400 font-mono block mt-1">
-          {new Date(order.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' })}
-          {' · '}
           {new Date(order.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </td>

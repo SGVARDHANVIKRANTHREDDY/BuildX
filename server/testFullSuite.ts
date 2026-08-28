@@ -44,15 +44,15 @@ async function main() {
 
   
   console.log('admin auth');
-  const admin = getAdminRecord('svce', wb);
+  const admin = getAdminRecord('admin', wb);
   check(Boolean(admin), 'admin record exists', admin?.username);
 
-  const passwordOk = admin ? bcrypt.compareSync('svce123', admin.password_hash) : false;
+  const passwordOk = admin ? bcrypt.compareSync('admin123', admin.password_hash) : false;
   check(passwordOk, 'bcrypt password check');
 
-  const jwtToken = jwt.sign({ username: 'svce' }, JWT_SECRET, { expiresIn: '45m' });
+  const jwtToken = jwt.sign({ username: 'admin' }, JWT_SECRET, { expiresIn: '45m' });
   const decoded = jwt.verify(jwtToken, JWT_SECRET) as { username: string };
-  check(decoded.username === 'svce', 'jwt sign/verify roundtrip');
+  check(decoded.username === 'admin', 'jwt sign/verify roundtrip');
 
   
   console.log('token counter');

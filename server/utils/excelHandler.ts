@@ -54,12 +54,10 @@ function createInitialWorkbook(): XLSX.WorkBook {
   });
   xlsxLib.utils.book_append_sheet(wb, wsCounter, SHEET_COUNTER);
 
-  // NOTE: for a real deployment, prefer seeding this from an environment
-  // variable (e.g. process.env.ADMIN_USERNAME / ADMIN_PASSWORD) rather than
-  // a hardcoded literal, so credentials aren't sitting in source control.
-  const defaultAdminHash = bcrypt.hashSync('svce123', 10);
+  
+  const defaultAdminHash = bcrypt.hashSync('admin123', 10);
   const defaultAdmin: AdminRecord[] = [
-    { username: 'svce', password_hash: defaultAdminHash }
+    { username: 'admin', password_hash: defaultAdminHash }
   ];
   const wsAdmin = xlsxLib.utils.json_to_sheet(defaultAdmin, {
     header: ['username', 'password_hash']

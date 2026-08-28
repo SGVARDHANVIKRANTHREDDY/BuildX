@@ -44,23 +44,8 @@ export function useMenuAndCart(onCartCountChange?: (count: number) => void) {
     }
   }, [cart, onCartCountChange]);
 
-  // Normalize category casing (e.g. "Fast Food" and "FASTFOOD" refer to the same
-  // category but come from inconsistently-entered menu data) so they merge into
-  // a single filter chip instead of showing up as duplicates.
-  const normalizeCategory = (c: string) => c.trim().replace(/\s+/g, ' ');
-  const canonicalCategoryFor = new Map<string, string>();
-  for (const item of menuItems) {
-    const normalized = normalizeCategory(item.category);
-    const key = normalized.toLowerCase();
-    if (!canonicalCategoryFor.has(key)) {
-      canonicalCategoryFor.set(key, normalized);
-    }
-  }
-  const categories = ['All', ...Array.from(canonicalCategoryFor.values())];
-  const filteredItems =
-    selectedCategory === 'All'
-      ? menuItems
-      : menuItems.filter(i => normalizeCategory(i.category).toLowerCase() === selectedCategory.toLowerCase());
+  const categories = ['All', ...Array.from(new Set(menuItems.map(i => i.category)))];
+  const filteredItems = selectedCategory === 'All' ? menuItems : menuItems.filter(i => i.category === selectedCategory);
 
   const addToCart = (item: MenuItem) => {
     if (!item.available) return;

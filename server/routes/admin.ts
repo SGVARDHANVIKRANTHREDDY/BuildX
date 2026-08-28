@@ -54,7 +54,7 @@ router.post('/login', loginRateLimit, async (req, res) => {
 
 router.post('/refresh', authAdminMiddleware, (req: AdminAuthRequest, res) => {
   try {
-    const username = req.adminUser?.username || 'svce';
+    const username = req.adminUser?.username || 'admin';
     const newToken = jwt.sign({ username }, JWT_SECRET, { expiresIn: TOKEN_EXPIRY });
     res.json({
       success: true,
