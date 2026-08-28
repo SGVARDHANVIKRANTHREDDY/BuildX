@@ -24,8 +24,8 @@ export const CategoryFilterBar: React.FC<CategoryFilterBarProps> = ({
               onClick={() => onSelect(category)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 isSelected
-                  ? `${color.solidBg} text-white shadow-xs`
-                  : 'bg-white border border-ink-200 text-ink-500 hover:bg-ink-50'
+                  ? `${color.solidBg} text-white shadow-sm`
+                  : 'bg-white border border-ink-200 text-ink-700 shadow-xs hover:border-ink-400 hover:bg-ink-50'
               }`}
             >
               {category !== 'All' && (

@@ -28,7 +28,7 @@ export const SystemPulseCard: React.FC<SystemPulseCardProps> = ({ stats }) => {
   return (
     <div className="bg-white p-6 rounded-2xl border border-ink-200 shadow-xs">
       <h3 className="text-ink-400 text-xs font-black uppercase tracking-widest mb-4">
-        System Pulse
+        System Pulse <span className="text-ink-400 font-medium normal-case tracking-normal">(today)</span>
       </h3>
       <div className="grid grid-cols-2 gap-3">
         {STAT_TILES.map(tile => {
