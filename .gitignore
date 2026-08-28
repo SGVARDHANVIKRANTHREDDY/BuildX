@@ -55,4 +55,5 @@ Thumbs.db
 # Temporary / test output
 coverage/
 .nyc_output/
-server/data/backups/
+
+server/data/canteen_data.xlsx
