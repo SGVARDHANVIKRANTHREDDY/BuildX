@@ -3,8 +3,8 @@ import type React from 'react';
 
 export function useAdminAuth(onLoginStatusChange: (isLoggedIn: boolean) => void) {
   const [authToken, setAuthToken] = useState<string | null>(localStorage.getItem('canteen_admin_jwt'));
-  const [username, setUsername] = useState<string>('admin');
-  const [password, setPassword] = useState<string>('admin123');
+  const [username, setUsername] = useState<string>('svce');
+  const [password, setPassword] = useState<string>('svce123');
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
 

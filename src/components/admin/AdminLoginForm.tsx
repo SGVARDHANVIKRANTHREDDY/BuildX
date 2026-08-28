@@ -67,7 +67,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({
 
           <div className="p-3 bg-ink-50 border border-ink-200 rounded-xl text-[11px] text-ink-500">
             <span className="font-bold text-ink-700">Demo Credentials:</span>
-            <div className="font-mono mt-0.5">admin / admin123</div>
+            <div className="font-mono mt-0.5">svce / svce123</div>
           </div>
 
           <button
