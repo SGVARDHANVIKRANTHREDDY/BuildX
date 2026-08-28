@@ -55,3 +55,4 @@ Thumbs.db
 # Temporary / test output
 coverage/
 .nyc_output/
+server/data/backups/
