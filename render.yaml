@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: canteenos
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: ALLOW_DEMO_CONCURRENCY
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: "mailto:you@example.com"
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+    disk:
+      name: canteenos-data
+      # Mounted over server/data so the xlsx workbook, its backups, and the
+      # auto-generated JWT/VAPID secrets survive restarts and redeploys.
+      # Without this disk, Render's filesystem is ephemeral and every
+      # deploy wipes all orders and rotates the signing keys.
+      mountPath: /opt/render/project/src/server/data
+      sizeGB: 1

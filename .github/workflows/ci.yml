@@ -1,0 +1,37 @@
+name: CI
+
+# Runs on every push and pull request against main. Previously the test
+# suite (npm test) only ran when someone remembered to run it locally —
+# nothing enforced it, so a broken build or a regression in the data layer
+# could land without anyone noticing until it hit a real deploy.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      - name: Build (client bundle + bundled server)
+        run: npm run build
+
+      - name: Run test suite
+        run: npm test

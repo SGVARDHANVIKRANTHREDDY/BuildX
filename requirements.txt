@@ -1,0 +1,82 @@
+requirements.txt — CanteenOS Project Runtime Requirements
+==========================================================
+
+Runtime Environment
+-------------------
+Node.js       >= 20.x LTS  (tested on v20.19.4; v22+ required by better-sqlite3 prebuilts,
+                             so pin to v20 and rebuild native modules from source)
+npm           >= 10.x
+Windows / Linux / macOS     (native module better-sqlite3 compiles on all three)
+
+System Build Tools (needed to compile better-sqlite3 from source on Node 20)
+-----------------------------------------------------------------------------
+Python        >= 3.x
+node-gyp      (installed automatically via npm as a dependency)
+
+On Windows:
+  - Visual Studio Build Tools 2019/2022  (Desktop development with C++ workload)
+  OR
+  - windows-build-tools (npm install --global windows-build-tools)
+
+On Linux/macOS:
+  - build-essential / Xcode Command Line Tools
+
+Key Runtime Dependencies (from package.json)
+---------------------------------------------
+express              ^4.21.2   HTTP server framework
+better-sqlite3       9.x       Embedded SQLite database (WAL mode)
+web-push             ^3.6.7    VAPID-based Web Push notification sender
+jsonwebtoken         ^9.0.3    Admin session JWT signing/verification
+bcryptjs             ^3.0.3    Password hashing
+dotenv               ^17.2.3   .env file loader
+cors                 ^2.8.6    Cross-origin resource sharing middleware
+razorpay             ^2.9.8    Payment gateway integration
+async-mutex          ^0.5.0    Concurrency-safe order writes
+
+Frontend Build Dependencies
+---------------------------
+vite                 ^6.2.3    Frontend bundler / dev server
+react                ^19.0.1   UI library
+react-dom            ^19.0.1
+tsx                  ^4.21.0   TypeScript executor for the dev server
+typescript           ~5.8.2
+tailwindcss          ^4.1.14   Utility CSS framework
+esbuild              ^0.25.0   Server bundle for production
+
+Environment Variables (copy .env.example to .env before first run)
+-------------------------------------------------------------------
+JWT_SECRET           Long random string for signing admin tokens.
+                     Auto-generated if unset (local/demo only).
+VAPID_PUBLIC_KEY     Web Push VAPID public key.
+                     Auto-generated if unset (local/demo only).
+VAPID_PRIVATE_KEY    Web Push VAPID private key.
+                     Auto-generated if unset (local/demo only).
+VAPID_SUBJECT        mailto: address for Web Push contact.
+                     Default: mailto:admin@example.com
+TRUST_PROXY          Set "true" if behind nginx/Render/Railway reverse proxy.
+                     Default: false
+ALLOW_DEMO_CONCURRENCY  Set "true" to enable the concurrency demo feature.
+RAZORPAY_KEY_ID      Razorpay API key ID (test or live).
+RAZORPAY_KEY_SECRET  Razorpay API secret.
+ORDER_RETENTION_DAYS Days before orders are archived. Default: 90.
+PORT                 HTTP port. Default: 3000.
+
+Quick Start
+-----------
+1.  Ensure Node 20 LTS is installed (nvm use 20 or nvm4w on Windows)
+2.  npm install
+3.  npm rebuild better-sqlite3        # required on Node 20 (prebuilts target Node 22)
+4.  cp .env.example .env
+5.  npm run dev                       # starts Express + Vite dev server on :3000
+6.  Open http://localhost:3000
+
+Production Build
+----------------
+1.  npm run build
+2.  Set all required env vars (especially JWT_SECRET, VAPID keys)
+3.  npm start
+
+Generate VAPID Keys (for production)
+--------------------------------------
+node -e "const wp = require('web-push'); console.log(wp.generateVAPIDKeys());"
+Then set VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY in your environment.
