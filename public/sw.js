@@ -1,4 +1,4 @@
-﻿
+
 
 const CACHE_NAME = 'canteenos-shell-v1';
 
@@ -28,7 +28,8 @@ self.addEventListener('push', (event) => {
     icon: data.icon || '/icon-192.png',
     badge: data.badge || '/icon-192.png',
 
-    vibrate: data.vibrate || [200, 100, 200, 100, 200],
+    vibrate: data.vibrate || [300, 150, 300, 150, 300],
+    silent: false,
     data: { url: data.url || '/' },
     tag: data.tag || 'canteen-order',
     renotify: true,

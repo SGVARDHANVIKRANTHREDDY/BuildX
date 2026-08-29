@@ -58,13 +58,17 @@ export function useTrackOrder(initialTokenId: string) {
     if (prev && prev !== 'READY' && currentOrder.order_status === 'READY') {
       setShowReadyToast(true);
       playReadyChime();
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        try {
+          navigator.vibrate([300, 150, 300, 150, 300]);
+        } catch {}
+      }
       if ('Notification' in window && Notification.permission === 'granted') {
         try {
           new Notification('Your canteen order is ready!', {
             body: `Token #${currentOrder.token_id} — collect it at the counter now.`,
           });
-        } catch {
-                  }
+        } catch {}
       }
     }
     previousStatusRef.current = currentOrder.order_status;
